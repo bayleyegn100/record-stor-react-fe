@@ -17,10 +17,9 @@ function Records() {
   }, []);
 
   function addClick() {
-      const now = new Date();
-    setScopedRecord({id: 0, artist: "", album: "", year: now.getFullYear})  ;
+    const now = new Date();
+    setScopedRecord({ id: 0, artist: "", album: "", year: now.getFullYear });
     setShowForm(true);
-
   }
 
   function notify({ action, record, error }) {
@@ -28,20 +27,25 @@ function Records() {
       case "delete":
         setRecords(records.filter((r) => r.id !== record.id));
         break;
-        case "edit-form":
-            setShowForm(true);
-            setScopedRecord(record);
-            case "edit":
-                setRecords(records.map(r=> {
-                    if(r.id === record.id){
-                        return record
-                    }
-                    return r;
-                }))
-                break;
-                case "add": 
-                setRecords([...records, record]);
-                break;
+        
+      case "edit-form":
+        setShowForm(true);
+        setScopedRecord(record);
+        break;
+
+      case "edit":
+        setRecords(
+          records.map((r) => {
+            if (r.id === record.id) {
+              return record;
+            }
+            return r;
+          })
+        );
+        break;
+      case "add":
+        setRecords([...records, record]);
+        break;
       default:
         console.log("Call notify wiht invalid action.");
     }
